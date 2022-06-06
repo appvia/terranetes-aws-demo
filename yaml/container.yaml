@@ -1,29 +1,22 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: azure-storage-example
+  name: aws-storage-example
 spec:
   template:
     spec:
       containers:
-      - name: azure-storage-example
-        image: tstahlfsu/azure-storage-example:latest
+      - name: aws-storage-example
+        image: tstahlfsu/aws-storage-example:latest
         imagePullPolicy: "Always"
         env:
         # The first name: is what you want the env var to be inside the container.
-          - name: PRIMARY_ACCESS_KEY
+          - name: S3_BUCKET_ID
             valueFrom:
               secretKeyRef:
               # The key: here is what maps to the secret key created from the TF controller.
-                name: appviastor3
-                key: PRIMARY_ACCESS_KEY
+                name: appvias3
+                key: S3_BUCKET_ID
                 optional: false 
-
-          - name: STOR_NAME
-            valueFrom:
-              secretKeyRef:
-                name: appviastor3
-                key: NAME
-                optional: false
       restartPolicy: Never
   backoffLimit: 2
