@@ -1,0 +1,27 @@
+---
+apiVersion: terraform.appvia.io/v1alpha1
+kind: Configuration
+metadata:
+  name: s3bucket
+spec:
+  # ssh git::ssh://git@example.com/foo/bar
+  module: https://github.com/terraform-aws-modules/terraform-aws-s3-bucket.git?ref=v3.2.3
+  enableAutoApproval: true
+
+  # Where is the TF provider located in the cluster, and which one do we use?
+  providerRef:
+    namespace: terraform-system
+    name: aws
+
+  # Outputs we want to capture as K8s secrets.
+  writeConnectionSecretToRef:
+    name: appvias3
+    keys:
+      - s3_bucket_id
+      - s3_bucket_bucket_domain_name
+  
+  # Inputs (variables.yaml) to the TF module.
+  variables:
+    bucket: appviatest1
+    acl: private
+    
