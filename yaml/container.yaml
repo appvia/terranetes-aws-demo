@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
       - name: aws-storage-example
-        image: tstahlfsu/aws-storage-example:latest
+        image: tstahlfsu/aws-s3-example:latest
         imagePullPolicy: "Always"
         env:
         # The first name: is what you want the env var to be inside the container.
@@ -18,5 +18,30 @@ spec:
                 name: appvias3
                 key: S3_BUCKET_ID
                 optional: false 
+          # AWS Credentials secret that the Go app will use to auth.
+          - name: AWS_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: aws
+                key: AWS_ACCESS_KEY_ID
+                optional: false 
+          - name: AWS_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: aws
+                key: AWS_SECRET_ACCESS_KEY
+                optional: false 
+          - name: AWS_SESSION_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: aws
+                key: AWS_SESSION_TOKEN
+                optional: false
+          - name: AWS_REGION
+            valueFrom:
+              secretKeyRef:
+                name: aws
+                key: AWS_REGION
+                optional: false
       restartPolicy: Never
   backoffLimit: 2

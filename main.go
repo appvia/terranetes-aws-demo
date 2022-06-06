@@ -50,8 +50,9 @@ func main() {
 	var bucketFileNamePointer *string = &bucketFileName
 
 	fmt.Printf("S3 Bucket Domain Name: " + bucketName + "\n")
+
 	// Load the Shared AWS Configuration (Using Env Variables from Secrets)
-	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithRegion("us-east-1"))
+	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		log.Fatal(err)
 	}
