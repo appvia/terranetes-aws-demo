@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: azure-storage-example
+spec:
+  template:
+    spec:
+      containers:
+      - name: azure-storage-example
+        image: tstahlfsu/azure-storage-example:latest
+        imagePullPolicy: "Always"
+        env:
+        # The first name: is what you want the env var to be inside the container.
+          - name: PRIMARY_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+              # The key: here is what maps to the secret key created from the TF controller.
+                name: appviastor3
+                key: PRIMARY_ACCESS_KEY
+                optional: false 
+
+          - name: STOR_NAME
+            valueFrom:
+              secretKeyRef:
+                name: appviastor3
+                key: NAME
+                optional: false
+      restartPolicy: Never
+  backoffLimit: 2

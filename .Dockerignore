@@ -4,3 +4,4 @@ setupenv.sh
 .git
 .cache
 yaml
+.DS_Store
