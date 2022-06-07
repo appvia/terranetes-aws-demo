@@ -11,7 +11,7 @@ kubectl -n terraform-system create secret generic aws \
   --from-literal=AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN \
   --from-literal=AWS_REGION=$AWS_REGION
 
-kubectl -n demo create secret generic aws \            
+kubectl -n demo create secret generic aws \
   --from-literal=AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
   --from-literal=AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
   --from-literal=AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN \
